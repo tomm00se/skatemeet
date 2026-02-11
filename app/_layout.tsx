@@ -17,12 +17,21 @@ const RootNavigation = () => {
     const inAuthGroup = segments[0] === "(auth)";
     const inOnboardingGroup = segments[0] === "(onboarding)";
 
-    if (!session) {
+    if (!session && !inAuthGroup && !inOnboardingGroup) {
       //If the user is not signed in, restrict them to login and sign up
       router.replace("/Login");
-    } else if (profile && !profile.onboarding_completed) {
-      router.replace("/Onboarding");
-    } else if (session && (inAuthGroup || segments[0] === undefined)) {
+    } else if (profile && !inOnboardingGroup && !profile.onboarding_completed) {
+      router.replace("/(onboarding)");
+    } else if (
+      session &&
+      (inAuthGroup || inOnboardingGroup || segments[0] === undefined)
+    ) {
+      router.replace("/(tabs)");
+    } else if (
+      session &&
+      profile?.onboarding_completed && // <--- Only go to tabs if we KNOW onboarding is done
+      (inAuthGroup || inOnboardingGroup || segments[0] === undefined)
+    ) {
       router.replace("/(tabs)");
     }
 
