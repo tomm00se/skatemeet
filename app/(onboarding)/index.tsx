@@ -24,13 +24,13 @@ export const Onboarding = () => {
       alert("Error updating profile: " + error.message);
       setLoading(false);
     }
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Welcome to SK8:Meet!</Text>
-        <ProfileForm onSubmit={handleUpdateProfile} isLoading={loading} />
-      </View>
-    );
   };
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome to SK8:Meet!</Text>
+      <ProfileForm onSubmit={handleUpdateProfile} isLoading={loading} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
